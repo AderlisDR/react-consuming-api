@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import CardList from './CardList'
 
 function App() {
+  const [dataList, setDataList] = useState([])
+
+  useEffect(() => {
+    fetch('https://api.nasa.gov/planetary/apod?api_key=pOUM6a7XgBx6mxRs9K4f822C7PIi8IPJkxeADmRK&count=6')
+    .then(response => response.json())
+    .then(json => setDataList(json))
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <CardList dataList={dataList} />
+  )
 }
 
 export default App;
